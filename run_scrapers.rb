@@ -6,56 +6,57 @@ output = 'log/scrapers.out' # The log file for scraper output. Says how many eve
 email = ARGV[0] != 'no_email' rescue true
 
 scrapers = [
-   BabrahamScraper,
-   BiocompRdfaScraper,
-   BioconductorScraper,
-   BioconductorJsonldScraper,
-   BitsvibEventsJsonldScraper,
-   BitsvibRdfaScraper,
-   BiviMaterialScraper,
-   BiviEventScraper,
-   BmtcJsonldScraper,
-   CambridgeEventsScraper,
-   CourseraScraper,
-   #CscEventsScraper,
-   CscEventsScraperNew,
-   CvlEventbriteScraper,
-   DataCarpentryScraper,
-   DataCarpentryEventsScraper,
-   DenbiScraper,
-   DtlsEventsScraper,
-   #EbiScraper, # Broken old materials one
-   EbiJsonScraper,
-   EdinburghScraper,
-   ElixirEventsScraper,
-   EnanomapperScraper,
-   #ErasysRdfaScraper, # Domain changed to erasysapp.eu, breaking old links
-   FlemishJsonldEventsScraper,
-   FuturelearnRdfaScraper,
-   GalaxyEventsScraper,
-   #GalaxyScraper,
-   Genome3dScraper,
-   GobletRdfaScraper,
-   #GobletApiScraper, # See ticket #20
-   IfbRdfaScraper,
-   IntermineScraper,
-   KhanAcademyApiScraper,
-   LegacySoftwareCarpentryScraper,
-   LibraryCarpentryEventsScraper,
-   LuxembourgRdfaScraper,
-   NbisEventsScraper,
-   NgsRegistryScraper,
-   OpenTargetJsonScraper,
-   PortugalEventsScraper,
-   PraceEventsScraper,
-   RssScraper,
-   SheffieldScraper,
-   SibScraper,
-   SibEventsScraper,
-   SoftwareCarpentryEventsScraper,
-   #IannEventsScraper,
-   ScilifelabScraper,
-   WellcomeEventsScraper
+  PaNTrainingMaterialScraper
+  #  BabrahamScraper,
+  #  BiocompRdfaScraper,
+  #  BioconductorScraper,
+  #  BioconductorJsonldScraper,
+  #  BitsvibEventsJsonldScraper,
+  #  BitsvibRdfaScraper,
+  #  BiviMaterialScraper,
+  #  BiviEventScraper,
+  #  BmtcJsonldScraper,
+  #  CambridgeEventsScraper,
+  #  CourseraScraper,
+  #  #CscEventsScraper,
+  #  CscEventsScraperNew,
+  #  CvlEventbriteScraper,
+  #  DataCarpentryScraper,
+  #  DataCarpentryEventsScraper,
+  #  DenbiScraper,
+  #  DtlsEventsScraper,
+  #  #EbiScraper, # Broken old materials one
+  #  EbiJsonScraper,
+  #  EdinburghScraper,
+  #  ElixirEventsScraper,
+  #  EnanomapperScraper,
+  #  #ErasysRdfaScraper, # Domain changed to erasysapp.eu, breaking old links
+  #  FlemishJsonldEventsScraper,
+  #  FuturelearnRdfaScraper,
+  #  GalaxyEventsScraper,
+  #  #GalaxyScraper,
+  #  Genome3dScraper,
+  #  GobletRdfaScraper,
+  #  #GobletApiScraper, # See ticket #20
+  #  IfbRdfaScraper,
+  #  IntermineScraper,
+  #  KhanAcademyApiScraper,
+  #  LegacySoftwareCarpentryScraper,
+  #  LibraryCarpentryEventsScraper,
+  #  LuxembourgRdfaScraper,
+  #  NbisEventsScraper,
+  #  NgsRegistryScraper,
+  #  OpenTargetJsonScraper,
+  #  PortugalEventsScraper,
+  #  PraceEventsScraper,
+  #  RssScraper,
+  #  SheffieldScraper,
+  #  SibScraper,
+  #  SibEventsScraper,
+  #  SoftwareCarpentryEventsScraper,
+  #  #IannEventsScraper,
+  #  ScilifelabScraper,
+  #  WellcomeEventsScraper
 ]
 
 
@@ -81,8 +82,8 @@ begin
 
   if email && failed_scrapers.length > 0
     message = <<MESSAGE_END
-From: TeSS <tess@tess2-elixir.csc.fi>
-To: TeSS <tess-support@googlegroups.com>
+From: TeSS <pan-training@hzdr.de>
+To: TeSS <pan-training@hzdr.de>
 Subject: Scraper Failure (#{failed_scrapers.map { |e| e[0] }.join(', ')})
 
 It would seem that the following scrapers have failed to run:
@@ -93,7 +94,7 @@ MESSAGE_END
 
     begin
       Net::SMTP.start('localhost') do |smtp|
-        smtp.send_message message, 'tess@tess2-elixir.csc.fi', 'tess-support@googlegroups.com'
+        smtp.send_message message, 'pan-training@hzdr.de'
       end
     rescue => e
       puts "Could not email: #{message} | #{e}"
