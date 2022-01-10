@@ -6,7 +6,8 @@ output = 'log/scrapers.out' # The log file for scraper output. Says how many eve
 email = ARGV[0] != 'no_email' rescue true
 
 scrapers = [
-  #  PaNTrainingMaterialScraper
+  # PaNTrainingMaterialScraper
+  # LensEventScraper,
   LaserlabEventsScraper,
   LeapsEventsScraper
 ]

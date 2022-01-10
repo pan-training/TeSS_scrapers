@@ -18,7 +18,8 @@ class LeapsEventsScraper < Tess::Scrapers::Scraper
         title: 'League of European Accelerator-based Photon Sources (LEAPS)',
         url: 'https://leaps-initiative.eu/',
         image_url: 'https://leaps-initiative.eu/wp-content/uploads/2019/11/cropped-LEAPS_logo_colour-e1573546128283.jpg',
-        description: "LEAPS – the League of European Accelerator-based Photon Sources – is a strategic consortium initiated by the Directors of the Synchrotron Radiation and Free Electron Laser user facilities in Europe. Its primary goal is to actively and constructively ensure and promote the quality and impact of fundamental, applied and industrial research carried out at each facility to the greater benefit of European science and society.")
+        description: "LEAPS – the League of European Accelerator-based Photon Sources – is a strategic consortium initiated by the Directors of the Synchrotron Radiation and Free Electron Laser user facilities in Europe. Its primary goal is to actively and constructively ensure and promote the quality and impact of fundamental, applied and industrial research carried out at each facility to the greater benefit of European science and society.",
+        content_provider_type: :project,)
 
 
     file = open_url(config[:root_url] + config[:ical_path])
