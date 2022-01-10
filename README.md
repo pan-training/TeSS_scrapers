@@ -1,9 +1,9 @@
-# TeSS Scrapers
+# PaN Training Catalogue Scrapers
 
 ## About
 
-These are a collection of Ruby scripts designed to scrape web pages (or other useful resources) and create Events or Materials on the TeSS website, https://tess.elixir-europe.org. They require the TeSS API client
-in order to function: https://github.com/ElixirTeSS/TeSS_api_client.
+These are a collection of Ruby scripts designed to scrape web pages (or other useful resources) and create Events or Materials on the [PaN catalogue](https://pan-training.hzdr.de). They require the PaN Catalogue or TeSS API client
+in order to function: https://github.com/pan-training/training-catalogue-api-client.
 
 ## Running
 
