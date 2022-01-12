@@ -9,6 +9,7 @@ scrapers = [
   # PaNTrainingMaterialScraper
   # LensEventScraper,
   #LaserlabEventsScraper,
+  PanoscEventScraper,
   LeapsEventsScraper
 ]
 
