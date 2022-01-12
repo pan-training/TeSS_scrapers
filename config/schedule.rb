@@ -19,6 +19,6 @@
 
 # Learn more: http://github.com/javan/whenever
 
-every 1.day do
-  command 'bundle exec ruby run_scrapers.rb'
+every 1.day, at: '12:30 pm' do
+  command '/opt/catalogue_scrapers/scraper.job'
 end

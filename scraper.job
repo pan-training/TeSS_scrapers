@@ -1,0 +1,6 @@
+#!/bin/bash --login
+cd /opt/catalogue_scrapers/
+rvm gemset use catalogue-scrapers
+
+bundle exec ruby /opt/catalogue_scrapers/run_scrapers.rb
+
