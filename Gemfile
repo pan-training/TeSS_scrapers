@@ -12,3 +12,4 @@ gem 'tess_api_client', :git => 'git://github.com/pan-training/training-catalogue
 gem 'sanitize'
 gem 'tess_rdf_extractors', :git => 'git://github.com/ElixirTeSS/TeSS_RDF_Extractors.git'
 gem 'htmlentities'
+gem 'whenever'

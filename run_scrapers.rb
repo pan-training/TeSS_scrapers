@@ -8,7 +8,7 @@ email = ARGV[0] != 'no_email' rescue true
 scrapers = [
   # PaNTrainingMaterialScraper
   # LensEventScraper,
-  LaserlabEventsScraper,
+  #LaserlabEventsScraper,
   LeapsEventsScraper
 ]
 

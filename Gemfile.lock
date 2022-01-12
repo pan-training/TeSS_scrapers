@@ -28,6 +28,7 @@ GEM
     bcp47 (0.3.3)
       i18n
     builder (3.2.4)
+    chronic (0.10.2)
     concurrent-ruby (1.1.6)
     connection_pool (2.2.2)
     crass (1.0.4)
@@ -204,6 +205,8 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.8)
+    whenever (1.0.0)
+      chronic (>= 0.6.3)
 
 PLATFORMS
   ruby
@@ -221,6 +224,7 @@ DEPENDENCIES
   simple-rss
   tess_api_client!
   tess_rdf_extractors!
+  whenever
 
 BUNDLED WITH
    2.3.4
