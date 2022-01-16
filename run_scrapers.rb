@@ -10,7 +10,8 @@ scrapers = [
   # LensEventScraper,
   #LaserlabEventsScraper,
   PanoscEventScraper,
-  LeapsEventsScraper
+  LeapsEventsScraper,
+  MoodleMaterialScraper
 ]
 
 

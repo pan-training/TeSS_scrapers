@@ -1,4 +1,6 @@
+require "active_support"
 require './lib/tess_scrapers'
+
 
 log = 'log/scrapers.log'
 output = 'log/scrapers.out' # Need to logrotate this!
