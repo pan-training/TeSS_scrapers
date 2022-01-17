@@ -7,12 +7,12 @@ class MoodleMaterialScraper < Tess::Scrapers::Scraper
   {
     name: 'Moodle',
     root_url: "http://pan-learning.org/moodle/webservice/rest/server.php",
-    token: "moodle_token",
+    moodle_token: Tess::API.config['moodle_token'],
   }
   end
 
   def scrape
-      query_params = {"wstoken" => config[:token], "moodlewsrestformat" => "json"}
+      query_params = {"wstoken" => config[:moodle_token], "moodlewsrestformat" => "json"}
       query_params_to_merge=query_params.merge({"wsfunction" => "core_course_get_courses"})
       response = HTTParty.get(config[:root_url], :query => query_params_to_merge)
 
@@ -77,7 +77,7 @@ class MoodleMaterialScraper < Tess::Scrapers::Scraper
       m = add_material(Tess::API::Material.new(title: item[:fullname],
                                                url: "https://pan-learning.org/moodle/course/view.php?id="+item[:id].to_s,
                                                short_description: summary,
-                                               content_provider_id: 1,
+                                               content_provider_id: 28,
                                                keywords: keywords_list,
                                                 resource_type: ["Moodle course","e-learning"]
                                               ))      
@@ -86,7 +86,7 @@ class MoodleMaterialScraper < Tess::Scrapers::Scraper
       m = add_material(Tess::API::Material.new(title: item[:fullname],
                                                url: "https://pan-learning.org/moodle/course/view.php?id="+item[:id].to_s,
                                                short_description: summary,
-                                               content_provider_id: 1,
+                                               content_provider_id: 28,
                                                 resource_type: ["Moodle course","e-learning"]
                                               )) 
       
