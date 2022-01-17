@@ -12,6 +12,17 @@ class MoodleMaterialScraper < Tess::Scrapers::Scraper
   end
 
   def scrape
+      cp = add_content_provider(Tess::API::ContentProvider.new(title: "PaN Training",
+                                                             url: "https://pan-learning.org/",
+                                                             image_url: "https://raw.githubusercontent.com/pan-training/training-catalogue/landing_page/new_design/PaN-training_color.png",
+                                                             description: "PaN Training is the E-learning platform for the Photon and Neutron community. The platform has a long history and is also part of the EU-founded projects PaNOSC and ExPaNDS.
+
+* The E-learning platform hosts free education and training for scientists and students.
+* In the platform you will find courses on both the theory of photon and neutron scattering 
+and how to use python code or software for data reduction and modelling.
+* All content from our E-learning platform is also listed in this catalogue of PaN training materials.",
+                                                             content_provider_type: :project,
+                                                            ))
       query_params = {"wstoken" => config[:moodle_token], "moodlewsrestformat" => "json"}
       query_params_to_merge=query_params.merge({"wsfunction" => "core_course_get_courses"})
       response = HTTParty.get(config[:root_url], :query => query_params_to_merge)
@@ -77,7 +88,7 @@ class MoodleMaterialScraper < Tess::Scrapers::Scraper
       m = add_material(Tess::API::Material.new(title: item[:fullname],
                                                url: "https://pan-learning.org/moodle/course/view.php?id="+item[:id].to_s,
                                                short_description: summary,
-                                               content_provider_id: 28,
+                                               content_provider: cp,
                                                keywords: keywords_list,
                                                 resource_type: ["Moodle course","e-learning"]
                                               ))      
@@ -86,7 +97,7 @@ class MoodleMaterialScraper < Tess::Scrapers::Scraper
       m = add_material(Tess::API::Material.new(title: item[:fullname],
                                                url: "https://pan-learning.org/moodle/course/view.php?id="+item[:id].to_s,
                                                short_description: summary,
-                                               content_provider_id: 28,
+                                               content_provider: cp,
                                                 resource_type: ["Moodle course","e-learning"]
                                               )) 
       
