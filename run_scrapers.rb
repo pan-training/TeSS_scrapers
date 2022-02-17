@@ -11,6 +11,7 @@ scrapers = [
   LaserlabEventsScraper,
   PanoscEventScraper,
   LeapsEventsScraper,
+  LightsourcesEventScraper,
   MoodleMaterialScraper
 ]
 
