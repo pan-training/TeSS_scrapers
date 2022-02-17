@@ -12,7 +12,13 @@ class LightsourcesEventScraper < Tess::Scrapers::Scraper
   }
   end
 
-  def create_event(cp, title, link, start_date, end_date, description, type)
+  def create_event(cp, title, link, start_date, end_date, description, type, location)
+
+    if location.to_s.include? "online" or location.to_s.include? "Online"
+      online = true
+    else
+      online = false
+    end
 
     new_event = Tess::API::Event.new(content_provider: cp,
                                     title: title,
@@ -20,8 +26,10 @@ class LightsourcesEventScraper < Tess::Scrapers::Scraper
                                     start: start_date,
                                     end: end_date,
                                     description: description,
-                                    event_types: [type]
+                                    event_types: [type],
+                                    online: online,
                                     )
+    #new_event.online = true,
     add_event(new_event)
   end
 
@@ -43,6 +51,12 @@ class LightsourcesEventScraper < Tess::Scrapers::Scraper
     keywords = doc.xpath('//div[@class="vsel-container"]/div/@class')
     keywords_list = keywords.map {|t| t.text.strip}
 
+    date = doc.xpath('//div[@class="vsel-container"]/div/div/div/@class')
+    date_list = date.map {|t| t.text.strip}
+
+    single_date = doc.xpath('//div[@class="vsel-container"]/div/div/div[@class="vsel-meta-date vsel-meta-single-date"]')
+    single_date_list = single_date.map {|t| t.text.strip}
+
     start_date = doc.xpath('//div[@class="vsel-container"]/div/div/div[@class="vsel-meta-date vsel-meta-start-date"]') 
     start_date_list = start_date.map {|t| t.text.strip}
 
@@ -58,34 +72,67 @@ class LightsourcesEventScraper < Tess::Scrapers::Scraper
     description = doc.xpath('//div[@class="vsel-container"]/div/div[@class="vsel-image-info vsel-image-info-right"]') 
     description_list = description.map {|t| t.text.strip}
 
+    d = 0
+    s = 0
+    single_day = []
+    0.upto(date_list.length - 1) do |i|
+      if date_list[i].include? "vsel-meta-start-date"
+        d = d+1
+        single_day.push(false)
+      end 
+      if date_list[i].include? "vsel-meta-single-date"
+        s = s+1
+        single_day.push(true)
+      end
+    end
+
+    # counts single day events
+    x = 0
+
     0.upto(title_list.length - 1) do |n|
       puts '-------------------------------------'
       puts n
       puts '-------------------------------------'
+
       puts title_list[n]
 
       if keywords_list[n].include? "seminar-series" or keywords_list[n].include? "lecture" or keywords_list[n].include? "online-course" or keywords_list[n].include? "training-school"
         puts "Workshops and courses"
-        create_event(cp, title_list[n], link_list[n], start_date_list[n], end_date_list[n].to_s[5...15], description_list[n], :workshops_and_courses)
+        if single_day[n]
+          puts single_date_list[x].to_s[6...16]
+          create_event(cp, title_list[n], link_list[n], single_date_list[x].to_s[6...16], single_date_list[x].to_s[6...16], description_list[n], :workshops_and_courses, location_list[n])
+          x = x+1
+        else
+          create_event(cp, title_list[n], link_list[n], start_date_list[n-x], end_date_list[n-x].to_s[5...15], description_list[n], :workshops_and_courses, location_list[n])
+          puts start_date_list[n-x]
+          puts end_date_list[n-x].to_s[5...15]
+        end
       else 
         if keywords_list[n].include? "conference" or keywords_list[n].include? "workshop"
           puts "Meetings and conferences"
-          create_event(cp, title_list[n], link_list[n], start_date_list[n], end_date_list[n].to_s[5...15], description_list[n], :meetings_and_conferences)
+          if single_day[n]
+            puts single_date_list[x].to_s[6...16]
+            create_event(cp, title_list[n], link_list[n], single_date_list[x].to_s[6...16], single_date_list[x].to_s[6...16], description_list[n], :meetings_and_conferences, location_list[n])
+            x = x+1
+          else
+            create_event(cp, title_list[n], link_list[n], start_date_list[n-x], end_date_list[n-x].to_s[5...15], description_list[n], :meetings_and_conferences, location_list[n])
+            puts start_date_list[n-x]
+            puts end_date_list[n-x].to_s[5...15]
+          end
         else
           puts "proposal!"
+          if single_day[n]
+            puts single_date_list[x].to_s[6...16]
+            x = x+1
+          end
         end      
       end
       puts location_list[n]
       puts link_list[n]
       puts description_list[n]
       
-      puts start_date_list[n]
-      #startday = Date.strptime(start_date_list[n].to_s, "%Y/%m/%d")
-
-      puts end_date_list[n].to_s[5...15]
-      #endday = Date.strptime(end_date_list[n].to_s['till '], "%Y/%m/%d")
-
-
+      
+        
     end
   end
 end
