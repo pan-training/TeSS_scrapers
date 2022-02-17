@@ -12,6 +12,19 @@ class LightsourcesEventScraper < Tess::Scrapers::Scraper
   }
   end
 
+  def create_event(cp, title, link, start_date, end_date, description, type)
+
+    new_event = Tess::API::Event.new(content_provider: cp,
+                                    title: title,
+                                    url: link,
+                                    start: start_date,
+                                    end: end_date,
+                                    description: description,
+                                    event_types: [type]
+                                    )
+    add_event(new_event)
+  end
+
   def scrape
     cp = add_content_provider(Tess::API::ContentProvider.new(title: "Lightsources.org",
                                                              url: config[:root_url],
@@ -26,6 +39,9 @@ class LightsourcesEventScraper < Tess::Scrapers::Scraper
 
     title = doc.xpath('//div[@class="vsel-container"]/div/div/h3/text()')
     title_list = title.map {|t| t.text.strip}
+
+    keywords = doc.xpath('//div[@class="vsel-container"]/div/@class')
+    keywords_list = keywords.map {|t| t.text.strip}
 
     start_date = doc.xpath('//div[@class="vsel-container"]/div/div/div[@class="vsel-meta-date vsel-meta-start-date"]') 
     start_date_list = start_date.map {|t| t.text.strip}
@@ -43,24 +59,32 @@ class LightsourcesEventScraper < Tess::Scrapers::Scraper
     description_list = description.map {|t| t.text.strip}
 
     0.upto(title_list.length - 1) do |n|
+      puts '-------------------------------------'
+      puts n
+      puts '-------------------------------------'
       puts title_list[n]
-      puts start_date_list[n]
-      puts end_date_list[n]
+
+      if keywords_list[n].include? "seminar-series" or keywords_list[n].include? "lecture" or keywords_list[n].include? "online-course" or keywords_list[n].include? "training-school"
+        puts "Workshops and courses"
+        create_event(cp, title_list[n], link_list[n], start_date_list[n], end_date_list[n].to_s[5...15], description_list[n], :workshops_and_courses)
+      else 
+        if keywords_list[n].include? "conference" or keywords_list[n].include? "workshop"
+          puts "Meetings and conferences"
+          create_event(cp, title_list[n], link_list[n], start_date_list[n], end_date_list[n].to_s[5...15], description_list[n], :meetings_and_conferences)
+        else
+          puts "proposal!"
+        end      
+      end
       puts location_list[n]
       puts link_list[n]
       puts description_list[n]
       
-    # day = Date.strptime(date_list[n].to_s, "%d/%m/%y")
+      puts start_date_list[n]
+      #startday = Date.strptime(start_date_list[n].to_s, "%Y/%m/%d")
 
-      # new_event = Tess::API::Event.new(content_provider: cp,
-      #                                  title: title_list[n],
-      #                                  url: url_list[n],
-      #                                  start: day,
-      #                                  end: day,
-      #                                  description: description_list[n],
-      #                                  event_types: [:workshops_and_courses]
-      #                                 )
-      # add_event(new_event)
+      puts end_date_list[n].to_s[5...15]
+      #endday = Date.strptime(end_date_list[n].to_s['till '], "%Y/%m/%d")
+
 
     end
   end

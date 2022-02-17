@@ -30,7 +30,7 @@ This runs all scrapers listed in the run_scrapers.rb file.
 
 To run an individual scraper run *run.rb* with the name of a scraper class from the app/scrapers/ folder. For example:
 
-`bundle exec ruby run.rb EbiJsonScraper`
+`bundle exec ruby run.rb LightsourcesEventScraper`
 
 ## Writing scrapers
 

@@ -6,5 +6,6 @@ iann
 parsed_goblet.json
 html/goblet_pages
 tmp
+workspace.code-workspace
 /log/*
 !/log/.keep
