@@ -60,11 +60,21 @@ module Tess
         scraped.each do |type, resources|
           unless type == :content_providers
             puts "#{resources.length} #{type}"
-            resources.each do |resource|
-              r = resource.create_or_update
-              print(r.errors ? 'E' : '.')
+            
+            resources.each do |resource|            
+                if type == :materials
+                    #this unscraped function (and the eventunscraped beneath)  is the one written in the gem tess_api_client
+                    if !resource.unscraped?
+                        r = resource.create_or_update
+                        print(r.errors ? 'E' : '.')                    
+                    end                    
+                elsif type == :events
+                    if !resource.eventunscraped?
+                        r = resource.create_or_update
+                        print(r.errors ? 'E' : '.')                    
+                    end                
+                end
             end
-            puts
           end
         end
       end
