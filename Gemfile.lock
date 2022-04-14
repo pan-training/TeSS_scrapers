@@ -1,13 +1,13 @@
 GIT
-  remote: git://github.com/ElixirTeSS/TeSS_RDF_Extractors.git
-  revision: b4acfc1ebc2a44f25aba53595d3a5f446fbd8c18
+  remote: https://github.com/ElixirTeSS/TeSS_RDF_Extractors.git
+  revision: cb173f76ea4d2c1ea8f94b9ad17e3fe5863da03e
   specs:
     tess_rdf_extractors (0.0.2)
       linkeddata (~> 2.0)
 
 GIT
-  remote: git://github.com/pan-training/training-catalogue-api-client.git
-  revision: 4a284642d207adbbf120140e936204b49a544f60
+  remote: https://github.com/pan-training/training-catalogue-api-client.git
+  revision: c574278ea55e9974f16ea103c0128367c8e17891
   specs:
     tess_api_client (0.3.3)
       inifile (~> 3.0.0)
@@ -18,7 +18,7 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
-    activesupport (7.0.1)
+    activesupport (7.0.2.3)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
@@ -210,7 +210,7 @@ GEM
       concurrent-ruby (~> 1.0)
     unf (0.1.4)
       unf_ext
-    unf_ext (0.0.8)
+    unf_ext (0.0.8.1)
     whenever (1.0.0)
       chronic (>= 0.6.3)
 
