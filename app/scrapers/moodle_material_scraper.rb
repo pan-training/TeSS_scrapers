@@ -96,7 +96,7 @@ and how to use python code or software for data reduction and modelling.
 
       m = add_material(Tess::API::Material.new(title: item[:fullname],
                                                url: "https://pan-learning.org/moodle/course/view.php?id="+item[:id].to_s,
-                                               short_description: summary,
+                                               short_description: "No short description available.",
                                                content_provider: cp,
                                                 resource_type: ["Moodle course","e-learning"]
                                               )) 

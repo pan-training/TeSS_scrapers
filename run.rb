@@ -1,6 +1,8 @@
 require "active_support"
 require './lib/tess_scrapers'
+require 'openssl'
 
+$VERBOSE = nil
 
 log = 'log/scrapers.log'
 output = 'log/scrapers.out' # Need to logrotate this!
