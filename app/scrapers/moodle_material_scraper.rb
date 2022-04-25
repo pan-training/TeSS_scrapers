@@ -68,6 +68,9 @@ and how to use python code or software for data reduction and modelling.
        summary = "No short description available."
       end
       
+      if (summary.blank?)
+       summary = "No short description available."
+      end
 
       summary_sanitized = Rails::Html::FullSanitizer.new.sanitize(summary)
       #extract keywords out of the summary
