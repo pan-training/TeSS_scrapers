@@ -51,7 +51,7 @@ and how to use python code or software for data reduction and modelling.
       #choose 2nd summary if it's not empty and if its longer than the first
       #choose 1st summary if it's not empty 
       #choose 3rd summary (needs to not be empty)
-      #if theyre all empty (?possible?) then just write summary
+      #if theyre all empty (?possible?) then just write: No short description available.
       if (!item[:second_summary].nil?) 
        if(item[:first_summary].nil?)
        summary = item[:second_summary]
@@ -65,7 +65,7 @@ and how to use python code or software for data reduction and modelling.
       elsif (!item[:third_summary].nil?) # true
        summary = item[:third_summary]
       else
-       summary = "summary"
+       summary = "No short description available."
       end
       
 
@@ -96,7 +96,7 @@ and how to use python code or software for data reduction and modelling.
 
       m = add_material(Tess::API::Material.new(title: item[:fullname],
                                                url: "https://pan-learning.org/moodle/course/view.php?id="+item[:id].to_s,
-                                               short_description: "No short description available.",
+                                               short_description: summary,
                                                content_provider: cp,
                                                 resource_type: ["Moodle course","e-learning"]
                                               )) 
