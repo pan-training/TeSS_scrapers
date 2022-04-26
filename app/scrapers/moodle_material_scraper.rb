@@ -71,8 +71,13 @@ and how to use python code or software for data reduction and modelling.
       if (summary.blank?)
        summary = "No short description available."
       end
-
+        
       summary_sanitized = Rails::Html::FullSanitizer.new.sanitize(summary)
+        
+      if (summary_sanitized.blank?)
+       summary = "No short description available."
+      end        
+        
       #extract keywords out of the summary
       #9 is an arbitrary value, it can be changed to be higher so it's stricter
       rake = RakeText.new
