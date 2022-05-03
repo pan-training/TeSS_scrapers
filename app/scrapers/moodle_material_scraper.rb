@@ -12,15 +12,14 @@ class MoodleMaterialScraper < Tess::Scrapers::Scraper
   end
 
   def scrape
-      cp = add_content_provider(Tess::API::ContentProvider.new(title: "PaN Training",
-                                                             url: "https://pan-learning.org/",
-                                                             image_url: "https://raw.githubusercontent.com/pan-training/training-catalogue/landing_page/new_design/PaN-training_color.png",
-                                                             description: "PaN Training is the E-learning platform for the Photon and Neutron community. The platform has a long history and is also part of the EU-founded projects PaNOSC and ExPaNDS.
+      cp = add_content_provider(Tess::API::ContentProvider.new(title: "PaN Learning",
+                                                             url: "https://e-learning.pan-training.eu/",
+                                                             image_url: "https://github.com/pan-training/pan-training.github.io/blob/gh-pages/assets/img/PaNelearning.png",
+                                                             description: "PaN Learning is the E-learning platform of the PaN Training Portal for the Photon and Neutron community. The platform has a long history and is also part of the EU-founded projects PaNOSC and ExPaNDS.
 
-* The E-learning platform hosts free education and training for scientists and students.
-* In the platform you will find courses on both the theory of photon and neutron scattering 
-and how to use python code or software for data reduction and modelling.
-* All content from our E-learning platform is also listed in this catalogue of PaN training materials.",
+The E-learning platform hosts free education and training for scientists and students.
+In the platform you will find courses on both the theory of photon and neutron scattering and how to use python code or software for data reduction and modelling.
+All content from our E-learning platform is also listed in this catalogue of PaN training materials.",
                                                              content_provider_type: :project,
                                                             ))
       query_params = {"wstoken" => config[:moodle_token], "moodlewsrestformat" => "json"}
