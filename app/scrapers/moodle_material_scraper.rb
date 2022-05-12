@@ -90,7 +90,10 @@ All content from our E-learning platform is also listed in this catalogue of PaN
           keywords_list << key
           end
       end
-      
+    
+      #might want to change the unknown_tags parameter, see https://github.com/xijo/reverse_markdown 
+      summary = ReverseMarkdown.convert(summary,github_flavored: true)
+    
       if keywords_list.length()>=1
       m = add_material(Tess::API::Material.new(title: item[:fullname],
                                                url: "https://pan-learning.org/moodle/course/view.php?id="+item[:id].to_s,
