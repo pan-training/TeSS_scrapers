@@ -178,6 +178,8 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
+    reverse_markdown (2.1.1)
+      nokogiri
     sanitize (4.6.4)
       crass (~> 1.0.2)
       nokogiri (>= 1.4.4)
@@ -228,6 +230,7 @@ DEPENDENCIES
   rails-html-sanitizer
   rake_text
   redcarpet
+  reverse_markdown
   sanitize
   simple-rss
   tess_api_client!

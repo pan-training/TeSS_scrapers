@@ -1,6 +1,7 @@
 require 'httparty'
 require 'rake_text'
 require 'rails-html-sanitizer' 
+require 'reverse_markdown'
 
 class MoodleMaterialScraper < Tess::Scrapers::Scraper
   def self.config
@@ -37,7 +38,13 @@ All content from our E-learning platform is also listed in this catalogue of PaN
       courses_array.each do |item|
         query_params_to_merge=query_params.merge({"wsfunction" => "core_course_get_contents", "courseid" => item[:id]}) 
         response = HTTParty.get(config[:root_url], :query => query_params_to_merge)
-        summary_2 = response.parsed_response[0]["summary"]
+
+        begin
+          summary_2 = response.parsed_response[0]["summary"]
+        rescue
+          summary_2 = nil
+        end
+
         summary_3 = nil
         if response.parsed_response.length()>=2
            summary_3 = response.parsed_response[1]["summary"]
